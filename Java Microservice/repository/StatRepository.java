@@ -11,17 +11,18 @@ import javax.transaction.Transactional;
 @Repository
 public interface StatRepository extends CrudRepository<Stat, Long> {
 
-    Stat findByButton(String button);
-    Boolean existsByTitle(String title);
+	Stat findByButton(String button);
 
-    @Transactional
-    @Modifying
-    @Query(value = "UPDATE STATS" +
-                   " SET COUNTER = COUNTER + ?1" +
-                   " WHERE TITLE = ?2", nativeQuery = true)
-    void updateCounter(long counter, String title);
+	Boolean existsByTitle(String title);
 
-    @Query(value = "SELECT SUM(COUNTER) FROM STATS", nativeQuery = true)
-    long getUniversalCounter();
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE STATS" +
+		" SET COUNTER = COUNTER + ?1" +
+		" WHERE TITLE = ?2", nativeQuery = true)
+	void updateCounter(long counter, String title);
+
+	@Query(value = "SELECT SUM(COUNTER) FROM STATS", nativeQuery = true)
+	long getUniversalCounter();
 
 }
